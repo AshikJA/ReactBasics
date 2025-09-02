@@ -4,10 +4,10 @@ import ContactList from "./ContactList";
 import Header from "./Header";
 import { v4 as uuidv4 } from "uuid";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AddContactWrapper from "./AddContactWrapper";
 import ContactDetails from "./ContactDetails";
 import api from './api/contact'
-import EditContactWrapper from "./EditContactWrapper";
+import AddContact from "./AddContact";
+import EditContact from "./EditContact";
 
 function App() {
 
@@ -22,7 +22,8 @@ function App() {
   }
 
   const addContactHandler = async (contact) => {
-    const request = { id: uuidv4(), ...contact }
+    const request = { id: uuidv4(), ...contact  }
+
     const response = await api.post('/contacts', request)
     setContacts([...contacts, response.data]);
   };
@@ -89,11 +90,11 @@ function App() {
           />
           <Route
             path="/add"
-            element={<AddContactWrapper addContactHandler={addContactHandler} />}
+            element={<AddContact addContactHandler={addContactHandler} />}
           />
           <Route
             path="/edit"
-            element={<EditContactWrapper updateContactHandler={updateContactHandler} />}
+            element={<EditContact updateContactHandler={updateContactHandler} />}
           />
           <Route path="/contact/:id" element={<ContactDetails/> }/>
         </Routes>
